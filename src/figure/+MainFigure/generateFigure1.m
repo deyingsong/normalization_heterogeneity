@@ -23,8 +23,9 @@ function generateFigure1()
         C = figureConstants();
         
         % Setup paths
-        dataPath = fullfile(pwd, C.paths.dataFolder);
-        resultPath = fullfile(pwd, C.paths.resultFolder);
+        parentFolder = fileparts(pwd);
+        dataPath = fullfile(rootFolder, C.paths.dataFolder);
+        resultPath = fullfile(parentFolder, C.paths.resultFolder);
         
         % Create result directory if it doesn't exist
         if ~exist(resultPath, 'dir')
