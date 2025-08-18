@@ -87,7 +87,7 @@ end
 function AH = createAxes(DC)
     % Create axes for all panels with labels
     
-    labels = {'A', 'B', 'C', 'D', 'E', 'F'};
+    labels = {'A', 'B', 'C', 'D1', 'D2', 'D3'};
     labelPos = [-0.04, 0.04];
     
     nPanels = length(DC);
@@ -311,8 +311,8 @@ function plotNeuralManifolds(axes_handles, dataPath, colors)
     % Setup parameters
     nSample = 20;
     nNeuron = [100, 200, 400, 800, 1600, 3200];
-    xTicks = [1e2,1e3,1e4];
-    xLim = [90, 1e4];
+    xticks = [1e2,1e3,1e4];
+    xLim = [50, 1e4];
     
     % Calculate statistics
     stats = calculateManifoldStats(defaultData, inDegreeData, nSample);
@@ -320,20 +320,20 @@ function plotNeuralManifolds(axes_handles, dataPath, colors)
     % Plot capacity
     axes(axes_handles(1));
     plotManifoldProperty(stats.capacityMean, stats.capacityStd, ...
-        nNeuron, colors, xLim, [0, 0.25], ...
-        'capacity', 'number of neurons', xTicks);
+        nNeuron, colors, xLim, [0, 0.35], ...
+        'capacity', 'number of neurons', xticks);
     
     % Plot radius
     axes(axes_handles(2));
     plotManifoldProperty(stats.radiusMean, stats.radiusStd, ...
-        nNeuron, colors, xLim, [0.5, 1.3], ...
-        'radius', 'number of neurons', xTicks);
+        nNeuron, colors, xLim, [0.5, 2], ...
+        'radius', 'number of neurons',);
     
     % Plot dimension
     axes(axes_handles(3));
     plotManifoldProperty(stats.dimensionMean, stats.dimensionStd, ...
         nNeuron, colors, xLim, [0, 80], ...
-        'dimension', 'number of neurons', xTicks);
+        'dimension', 'number of neurons');
 end
 
 % Helper functions
@@ -407,10 +407,10 @@ function stats = calculateManifoldStats(defaultData, inDegreeData, nSample)
                         sqrt(var(inDegreeData.avg_capacity_summary, 1) / nSample)];
 end
 
-function plotManifoldProperty(meanData, stdData, nNeuron, colors, xLim, yLim, yLabel, xLabel, xTicks)
+function plotManifoldProperty(meanData, stdData, nNeuron, colors, xLim, yLim, yLabel, xLabel)
     % Plot manifold property with error bars
     
-    plotIdx = 2:length(nNeuron);
+    plotIdx = 1:length(nNeuron);
     
     for i = 1:2
         if length(meanData(i,:)) >= plotIdx(end) && length(stdData(i,:)) >= plotIdx(end)
@@ -424,7 +424,7 @@ function plotManifoldProperty(meanData, stdData, nNeuron, colors, xLim, yLim, yL
     ylim(yLim);
     ylabel(yLabel);
     xlabel(xLabel);
-    set(gca, 'XTick', xTicks);
+    set(gca, 'XTick', nNeuron);
     pbaspect([1, 1, 1]);
 end
 

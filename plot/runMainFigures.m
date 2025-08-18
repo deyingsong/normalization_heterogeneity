@@ -178,8 +178,8 @@ function [allPresent, missingFiles] = verifyDataFiles(dataPath)
         'Fig6_FRpattern_InDegree.mat'
         'Fig6_FI_Con.mat'
         'Fig6_FI_Ori.mat'
-        'Neural_Manifolds_Default_50image.mat'
-        'Neural_Manifolds_InDegree_50image.mat'
+        'Fig6_manifold_Default.mat'
+        'Fig6_manifold_InDegree.mat'
         % Shared colormap
         'mycolormap2.mat'
     };
