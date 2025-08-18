@@ -25,7 +25,7 @@ function runSuppFigures(varargin)
         'DynamicalRegime_wave', 'FFmodel_I0', 'FFmodel', ...
         'fI_curve_control', 'I_activity', 'PrefOri_StimOri', ...
         'RandomNet', 'SSN', 'Superimposed', 'V1', ...
-        'VarOriPair', 'WeakCoupling_EIbalance'};    
+        'VarOriPair', 'WeakCoupling_EIbalance','Tuning_vs_NormInd_MI'};    
     % Add parameter with default = all figure names
     addParameter(p, 'figures', validFigures, ...
     @(x) all(ismember(x, validFigures)));
@@ -43,12 +43,16 @@ function runSuppFigures(varargin)
     
     % Setup paths
     C = figureConstants();
-    dataPath = fullfile(pwd, C.paths.dataFolder);
-    resultPath = fullfile(pwd, C.paths.resultFolder);
-    figurePath = fullfile(pwd, C.paths.figureFolder);
-    utilsPath = fullfile(pwd, C.paths.utilsFolder);
-    addpath(figurePath);
+    thisFile = mfilename('fullpath');
+    here     = fileparts(thisFile);          % .../+MainFigure
+    rootFolder = fileparts(here);  % project root
+    dataPath = fullfile(rootFolder, C.paths.dataFolder);
+    resultPath = fullfile(rootFolder, C.paths.resultFolder);
+    figurePath = fullfile(rootFolder, C.paths.figureFolder);
+    utilsPath = fullfile(rootFolder, C.paths.utilsFolder);
+    addpath(resultPath);
     addpath(utilsPath);
+    addpath(figurePath);
     
     % Create directories if needed
     if ~exist(resultPath, 'dir')

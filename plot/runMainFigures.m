@@ -35,11 +35,13 @@ function runMainFigures(varargin)
     
     % Setup paths
     C = figureConstants();
-    parentFolder = fileparts(pwd);
-    dataPath = fullfile(parentFolder, C.paths.dataFolder);
-    resultPath = fullfile(parentFolder, C.paths.resultFolder);
-    figurePath = fullfile(parentFolder, C.paths.figureFolder);
-    utilsPath = fullfile(parentFolder, C.paths.utilsFolder);
+    thisFile = mfilename('fullpath');
+    here     = fileparts(thisFile);          % .../+MainFigure
+    rootFolder = fileparts(here);  % project root
+    dataPath = fullfile(rootFolder, C.paths.dataFolder);
+    resultPath = fullfile(rootFolder, C.paths.resultFolder);
+    figurePath = fullfile(rootFolder, C.paths.figureFolder);
+    utilsPath = fullfile(rootFolder, C.paths.utilsFolder);
     addpath(figurePath);
     addpath(utilsPath);
     
