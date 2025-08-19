@@ -30,32 +30,32 @@ function run_broad_weight_simulation(params, options)
     end
     
     % Load filters
-    filters = load_filters('V1filterRecSig0d2Lam0d6.mat');
+    filters = utils_simulation.load_filters('V1filterRecSig0d2Lam0d6.mat');
     
     % Generate input spikes
-    rng_seed = get_rng_seed(options);
-    s1 = generate_input_spikes(params, options, filters, rng_seed);
+    rng_seed = utils_simulation.get_rng_seed(options);
+    s1 = utils_simulation.gen_input_spikes(params, options, filters, rng_seed);
     
     % Load connectivity
-    [Wrr, Wrf] = generate_connectivity(params, options, rng_seed);
+    [Wrr, Wrf] = utils_simulation.gen_connectivity(params, options, rng_seed);
     
     % Generate weight matrices with gamma distribution
     [Jrr, Jrf] = generate_gamma_weights(params, Wrr, Wrf);
     
     % Initialize and run simulation
-    V0 = initialize_membrane_potentials(params);
+    V0 = utils_simulation.initialize_membrane_potentials(params);
     params.V0 = V0;
-    params.Irecord = select_recording_neurons(params);
+    params.Irecord = utils_simulation.select_recording_neurons(params);
     
     tic;
-    [s2, Isyn, Vm] = EIF1DRFfastslowSynAtttSpatRec(s1, Wrf, Wrr, Jrf, Jrr, params);
+    [s2, Isyn, Vm] = spiking_simulation.EIF_normalization_BroadWeight(s1, Wrf, Wrr, Jrf, Jrr, params);
     elapsed_time = toc;
     
     % Analyze and save results
-    results = analyze_simulation_results(s2, params, elapsed_time);
+    results = utils_simulation.analyze_simulation_results(s2, params, elapsed_time);
     
     if options.save
-        save_simulation_results(options.filename, s2, results, params, options);
+        utils_simulation.save_simulation_results(options.filename, s2, results, params, options);
     end
 end
 

@@ -1,4 +1,4 @@
-function sx = generate_input_spikes(fr, T, varargin)
+function sx = gen_input_spikes(fr, T, varargin)
 % GENERATE_INPUT_SPIKES - Generate spike trains from firing rates
 %
 % H1 Line: Create Poisson spike trains with optional noise modulation
@@ -125,7 +125,7 @@ function sx = generate_poisson_spikes(fr, T)
 %   firing rates for each neuron.
 %
 % Inputs:
-%   fr - Firing rate vector (Hz)
+%   fr - Firing rate vector (kHz)
 %   T  - Duration (ms)
 %
 % Outputs:
@@ -135,7 +135,7 @@ function sx = generate_poisson_spikes(fr, T)
     dt = 1;  % 1 ms time step
     
     % Pre-allocate with expected size
-    expected_spikes = sum(fr) * T / 1000;
+    expected_spikes = sum(fr) * T;
     sx = zeros(2, round(expected_spikes * 1.5));  % 50% safety margin
     
     nspks = 0;
@@ -143,7 +143,7 @@ function sx = generate_poisson_spikes(fr, T)
     % Generate spikes for each time step
     for t = dt:dt:T
         % Poisson spike generation
-        spk = rand(Nx, 1) < fr * dt / 1000;  % Convert Hz to probability
+        spk = rand(Nx, 1) < fr * dt;  % Convert Hz to probability
         
         ns_temp = nnz(spk);
         if ns_temp > 0
@@ -173,7 +173,7 @@ function sx = generate_noisy_spikes(fr, T, F, NI, sigma_n, tau_n)
 %   filtered noise inputs, creating more realistic variability.
 %
 % Inputs:
-%   fr      - Baseline firing rates (Hz)
+%   fr      - Baseline firing rates (kHz)
 %   T       - Duration (ms)
 %   F       - Filter matrix
 %   NI      - Number of noise inputs
@@ -194,7 +194,7 @@ function sx = generate_noisy_spikes(fr, T, F, NI, sigma_n, tau_n)
     end
     
     % Pre-allocate
-    expected_spikes = sum(fr) * T / 1000 * 1.2;  % Extra for noise
+    expected_spikes = sum(fr) * T * 1.2;  % Extra for noise
     sx = zeros(2, round(expected_spikes * 1.5));
     nspks = 0;
     
@@ -213,7 +213,7 @@ function sx = generate_noisy_spikes(fr, T, F, NI, sigma_n, tau_n)
         FR(FR < 0) = 0;
         
         % Generate spikes
-        spk = rand(Nx, 1) < FR * dt / 1000;
+        spk = rand(Nx, 1) < FR * dt;
         
         ns_temp = nnz(spk);
         if ns_temp > 0

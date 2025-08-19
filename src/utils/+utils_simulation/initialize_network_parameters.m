@@ -32,7 +32,7 @@ function params = initialize_network_parameters()
     % Simulation parameters
     params.T = 20000;        % Total simulation time (ms)
     params.dt = 0.05;        % Time step (ms)
-    params.Tburn = 10;       % Burn-in period (ms)
+    params.Tburn = 1000;       % Burn-in period (ms)
     params.maxrate = 0.05;   % Maximum average firing rate (kHz)
     
     % Static currents
@@ -53,6 +53,10 @@ function params = initialize_network_parameters()
     params.Jr = [80, -240;   % E->E, E->I
                  40, -300];  % I->E, I->I
     params.Jx = [160, 140, 160, 140];  % Feedforward strengths
+
+    % scale connection strengths
+    params.Jr = params.Jr / sqrt(params.N);
+    params.Jx = params.Jx / sqrt(params.N);
     
     % Synaptic time constants
     params.taudsyn = [5, 100;   % Decay time constants (X)
@@ -84,4 +88,6 @@ function params = initialize_network_parameters()
     params.sigma_n = 3.5;        % Input noise parameter
     params.tau_n = 40;           % Input noise time constant
     params.NI = 450;             % Number of input channels
+
+    params.attarea = 1;
 end

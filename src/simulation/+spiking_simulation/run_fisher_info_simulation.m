@@ -23,6 +23,12 @@ function run_fisher_info_simulation(params, options, match_indegree)
         fprintf('Using in-degree matched connectivity\n');
     end
     
+    thisFile = mfilename('fullpath');
+    srcDir = fileparts(fileparts(thisFile));
+    utilsFolder = fullfile(srcDir, 'utils', '+utils_simulation');
+    utils_name = fullfile(srcDir, 'utils', '+utils_analysis', 'spktime2count.c');
+    mex('-silent', '-outdir', utilsFolder, utils_name);
+
     % Check for contrast percentage parameter
     if ~isfield(params, 'ConPerc')
         error('SpikingSim:MissingConPerc', ...
@@ -30,47 +36,47 @@ function run_fisher_info_simulation(params, options, match_indegree)
     end
     
     % Load and prepare filters for ON/OFF cells
-    filters = load_filters('V1filterRecSig0d2Lam0d6.mat');
+    filters = utils_simulation.load_filters('V1filterRecSig0d2Lam0d6.mat');
     [F1, F2] = prepare_filters(filters.F);
     
     % Generate input spikes with ON/OFF structure
-    rng_seed = get_rng_seed(options);
+    rng_seed = utils_simulation.get_rng_seed(options);
     fr_data = load(options.fr_fname1, 'fr');
-    s1 = attt_genXspk_noise_OnOffCon(fr_data.fr, params.T, F1, F2, ...
+    s1 = utils_simulation.gen_fisher_info_spikes(fr_data.fr, params.T, F1, F2, ...
                                      params.NI, params.sigma_n, ...
                                      params.tau_n, params.ConPerc);
     
     % Load connectivity
     if match_indegree
-        [Wrr, Wrf, degree_params] = load_indegree_connectivity(options, params);
-        params = merge_structs(params, degree_params);
+        [Wrr, Wrf, degree_params] = utils_simulation.load_indegree_connectivity(options, params);
+        params = utils_simulation.merge_structs(params, degree_params);
     else
-        [Wrr, Wrf] = generate_connectivity(params, options, rng_seed);
+        [Wrr, Wrf] = utils_simulation.gen_connectivity(params, options, rng_seed);
     end
     
     % Initialize
-    V0 = initialize_membrane_potentials(params);
+    V0 = utils_simulation.initialize_membrane_potentials(params);
     params.V0 = V0;
     
     % Set more recording neurons for Fisher info
     params.nrecordE0 = 100;
     params.nrecordI0 = 100;
-    params.Irecord = select_recording_neurons(params);
+    params.Irecord = utils_simulation.select_recording_neurons(params);
     
     % Run simulation
     tic;
     if match_indegree
-        [s2, ~, ~] = EIF1DRFfastslowSynAtttSpatRecInDegree(...
+        [s2, ~, ~] = spiking_simulation.EIF_normalization_MatchInDegree(...
             s1, Wrf, Wrr, params);
     else
-        [s2, ~, ~] = EIF1DRFfastslowSynAtttSpatRec(...
+        [s2, ~, ~] = spiking_simulation.EIF_normalization_Default(...
             s1, Wrf, Wrr, params);
     end
     elapsed_time = toc;
     
     % Process for Fisher information
     s2 = s2(:, s2(2,:) ~= 0);
-    MTE2 = spktime2count(s2, 1:params.T, 100, 200, 1);
+    MTE2 = utils_simulation.spktime2count(s2, 1:params.T, 100, 200, 1);
     
     % Process spike counts for analysis windows
     timeinds = reshape(((3:40)-1)*5+(1:2)', [], 1);
@@ -79,7 +85,7 @@ function run_fisher_info_simulation(params, options, match_indegree)
     MTE2_process = int8(MTE2_process');
     
     % Calculate results
-    results = analyze_simulation_results(s2, params, elapsed_time);
+    results = utils_simulation.analyze_simulation_results(s2, params, elapsed_time);
     
     % Save
     if options.save

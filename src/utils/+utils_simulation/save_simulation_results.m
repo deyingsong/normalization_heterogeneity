@@ -1,4 +1,4 @@
-function save_simulation_results(filename, s2, results, params, options)
+function save_simulation_results(filename, s2, s1, results, params, options)
 % SAVE_SIMULATION_RESULTS - Save simulation output to file
 %
 % H1 Line: Save simulation data and results to MAT file
@@ -37,7 +37,7 @@ function save_simulation_results(filename, s2, results, params, options)
     
     % Optionally save spike data
     if options.saveS2
-        save(filename, 's2', '-append');
+        save(filename, 's2', 's1', '-append');
     end
     
     % Optionally save parameters

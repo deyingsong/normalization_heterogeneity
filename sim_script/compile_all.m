@@ -12,9 +12,9 @@ clc;
 
 thisFile = mfilename('fullpath');
 repoRoot = fileparts(fileparts(thisFile));          % up from sim_script → repo root
-simScriptDir = fullfile(repoRoot, 'sim_script');
-mexOutDir    = fullfile(simScriptDir, 'mex');
+% simScriptDir = fullfile(repoRoot, 'sim_script');
 srcDir       = fullfile(repoRoot, 'src');
+mexOutDir    = fullfile(srcDir, 'simulation', '+spiking_simulation');
 codesDir     = fullfile(srcDir, 'simulation/C_source_codes');
 
 if ~exist(mexOutDir, 'dir'); mkdir(mexOutDir); end
