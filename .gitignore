@@ -5,3 +5,9 @@
 results/
 .DS_Store
 >>>>>>> 30fb154 (Initial clean commit (skip large files))
+*.mat
+*.h5
+*.mex*
+data/
+results/
+.DS_Store
