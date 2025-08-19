@@ -20,7 +20,7 @@ function run_default_simulation(params, options)
     fprintf('Running default simulation...\n');
     
     % Load filters
-    filters = utils_simulation.load_filters('V1filterRecSig0d2Lam0d6.mat');
+    filters = utils_simulation.load_filters(params.V1_filters);
     
     % Generate input spikes
     rng_seed = utils_simulation.get_rng_seed(options);

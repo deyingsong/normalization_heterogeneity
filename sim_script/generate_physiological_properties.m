@@ -43,7 +43,7 @@ function out = generate_physiological_properties()
   Nx_V1 = 100;
   Kc    = 10 * 2*pi;  % as in your snippet
 
-  thetaMap_V1 = att_ori_map(Nx_V1, Kc);   % size 100×100
+  thetaMap_V1 = physiological_properties.generate_ori_map(Nx_V1, Kc);   % size 100×100
   thetaMap_V1_topHalf  = thetaMap_V1(1:50, :);
   thetaMap_V1_left     = thetaMap_V1_topHalf(:, 1:50);
   thetaMap_V1_right    = thetaMap_V1_topHalf(:, 51:100);
@@ -56,7 +56,7 @@ function out = generate_physiological_properties()
   %  V4/MT orientation map (Nx=200) and subfields (100×100 each)
   %  -------------------------
   Nx_V4MT = 200;
-  thetaMap_V4MT = att_ori_map(Nx_V4MT, Kc);   % size 200×200
+  thetaMap_V4MT = physiological_properties.generate_ori_map(Nx_V4MT, Kc);   % size 200×200
 
   % Split into two 100×100 fields to mirror the V1 handling
   thetaMap_V4MT_topHalf = thetaMap_V4MT(1:100, :);

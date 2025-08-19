@@ -90,4 +90,5 @@ function params = initialize_network_parameters()
     params.NI = 450;             % Number of input channels
 
     params.attarea = 1;
+    params.V1_filters = 'V1filterRecSig0d2Lam0d6.mat';  % Default V1 filters
 end
