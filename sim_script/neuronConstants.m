@@ -23,9 +23,9 @@ P = struct();
 P.geom.domain = [0 2; 0 1];       % Γ = [x_min x_max; y_min y_max]
 
 %% Population sizes
-p.Nx = 5e3;                % V1
-p.Ne = 2e4;                % V4/MT excitatory
-p.Ni = 5e3;                % V4/MT inhibitory
+P.Nx = 5e3;                % V1
+P.Ne = 2e4;                % V4/MT excitatory
+P.Ni = 5e3;                % V4/MT inhibitory
 
 
 %% V1 model neuron (receptive fields & drive)
@@ -61,7 +61,7 @@ P.conn.inhib.distance_only = true;
 % Helper: wrapped Gaussian (periodized separable 2D). Use finite sums in practice.
 P.conn.wrapGauss = @(dx,dy,sigma) (1/(2*pi*sigma^2)) * ...
     (sum(exp(-((dx + ( -3:3 )*2).^2) /(2*sigma^2))) .* ...
-     sum(exp(-((dy + ( -3:3 )*1).^2) /(2*sigma^2)))); %#ok<NASGU>
+     sum(exp(-((dy + ( -3:3 )*1).^2) /(2*sigma^2)))); 
 % (Implementation note: the above uses a small periodization window; adjust if needed.)
 
 %% Synaptic strengths, probabilities and out-degrees (V4/MT and feedforward)
