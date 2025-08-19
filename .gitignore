@@ -1,1 +1,7 @@
 .DS_Store
+<<<<<<< HEAD
+=======
+*.mat
+results/
+.DS_Store
+>>>>>>> 30fb154 (Initial clean commit (skip large files))
