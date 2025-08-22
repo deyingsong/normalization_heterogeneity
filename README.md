@@ -10,6 +10,8 @@
 
 This repository contains the source code and data to reproduce the results presented in our paper. We provide scripts for simulation, analysis, and figure generation.
 
+For a comprehensive introduction and tutorial on the high-performance C implementations of exponential integrate-and-fire network simulations, please consult this [repository](https://github.com/deyingsong/EIF-network-simulation).
+
 ### Repository Structure
 
 ```text
