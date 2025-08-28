@@ -56,7 +56,7 @@ For a comprehensive introduction and tutorial on the high-performance C implemen
    ```matlab
    setup
    ```
-2.  Download the data:
+2.  Download the data: All datasets used to generate the main and supplementary figures are available for download at [figshare](dx.doi.org/10.6084/m9.figshare.29940062). Datasets used to generate the main figures are available in the 'data/' directory.
 
 ## How to Reproduce Our Results
 
