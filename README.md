@@ -1,7 +1,7 @@
 # Neuronal heterogeneity of normalization strength in a circuit model
 
-> Song, D., Ruff, D., Cohen, M., & Huang, C. (2024). Neuronal heterogeneity of normalization strength in a circuit model. bioRxiv.
-> DOI: [https://doi.org/10.1101/2024.11.22.624903](https://doi.org/10.1101/2024.11.22.624903)
+> Song, D., Ruff, D., Cohen, M., & Huang, C. (2026). Neuronal heterogeneity of normalization strength in a circuit model. Science Advances.
+> DOI: [https://doi.org/10.1126/sciadv.adv9396](https://doi.org/10.1126/sciadv.adv9396)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![DOI](https://img.shields.io/badge/DOI-10.6084/m9.figshare.29940062-blue)](https://doi.org/10.6084/m9.figshare.29940062)
@@ -83,5 +83,5 @@ demo
 ## **Licensing and Contact**
 
 * **License**: MIT.
-* **Contact**: please email deyingsong [at] cmu [dot] edu for questions
+* **Contact**: please email deyingsong86 [at] gmail [dot] com for questions
 
